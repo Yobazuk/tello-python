@@ -3,8 +3,8 @@ from pynput.keyboard import Key, Listener, KeyCode
 
 class KeyboardController:
 
-    DEFAULT_MOVE_DIST = 5
-    DEFAULT_DEGREE_TURN = 5
+    DEFAULT_MOVE_DIST = 90
+    DEFAULT_DEGREE_TURN = 90
 
     def __init__(self, drone):
         self.drone = drone
@@ -12,9 +12,11 @@ class KeyboardController:
         self.move_functions = {KeyCode.from_char('a'): 'move_left', KeyCode.from_char('d'): 'move_right',
                                KeyCode.from_char('w'): 'move_forward', KeyCode.from_char('s'): 'move_backward',
                                Key.left: 'rotate_ccw', Key.right: 'rotate_cw', Key.up: 'move_up', Key.down: 'move_down'}
-        self.functions = {Key.tab: 'takeoff', Key.backspace: 'land', Key.esc: 'emergency_stop'}
+        self.functions = {Key.tab: 'takeoff', Key.backspace: 'land', Key.esc: 'emergency_stop', 
+                          KeyCode.from_char('b'): 'get_battery'}
 
         self.listener = Listener(on_press=self.on_press, on_release=self.on_release)
+        self.listener.daemon = True
         self.listener.start()
         self.listener.join()
 

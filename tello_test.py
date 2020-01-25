@@ -1,4 +1,4 @@
-from Tello import *
+from tello import *
 from keyboard_controller import *
 import time
 
