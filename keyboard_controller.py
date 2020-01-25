@@ -13,15 +13,14 @@ class KeyboardController:
                                KeyCode.from_char('w'): 'move_forward', KeyCode.from_char('s'): 'move_backward',
                                Key.left: 'rotate_ccw', Key.right: 'rotate_cw', Key.up: 'move_up', Key.down: 'move_down'}
         self.functions = {Key.tab: 'takeoff', Key.backspace: 'land', Key.esc: 'emergency_stop', 
-                          KeyCode.from_char('b'): 'get_battery'}
+                          KeyCode.from_char('b'): 'get_battery', KeyCode.from_char('t'): 'throw_and_go'}
+
+        self.flips = {KeyCode.from_char('z'): 'l', KeyCode.from_char('x'): 'r'}
 
         self.listener = Listener(on_press=self.on_press, on_release=self.on_release)
         self.listener.daemon = True
         self.listener.start()
         self.listener.join()
-
-    def set_drone(self, drone):
-        self.drone = drone
 
     def on_press(self, key):
         print(f'key {key} pressed')
@@ -32,6 +31,9 @@ class KeyboardController:
             elif key in self.move_functions.keys():
                 print(self.move_functions[key])
                 getattr(self.drone, self.move_functions[key])(self.DEFAULT_MOVE_DIST)
+            elif key in self.flips.keys():
+                print('flip ' + self.flips[key])
+                getattr(self.drone, 'flip')(self.flips[key])
             else:
                 print('Unrecognized Key!')
 

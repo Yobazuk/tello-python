@@ -59,6 +59,9 @@ class Tello:
         """
         return self.send_command('takeoff')
 
+    def throw_and_go(self):
+        return self.send_command('throw and go')
+
     def flip(self, direction):
         """
         :param direction: Direction to flip, 'l', 'r', 'f', 'b'.
@@ -191,6 +194,14 @@ class Tello:
         print("-> sent cmd: {}".format(command))
         last = self.response
         self.socket.sendto(command.encode(), self.address)
+        while self.response is last:
+            pass
+        return self.response
+
+    def send(self, command):
+        print("-> sent cmd: {}".format(command))
+        last = self.response
+        self.socket.sendto(command, self.address)
         while self.response is last:
             pass
         return self.response
