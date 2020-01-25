@@ -13,9 +13,9 @@ class KeyboardController:
                                KeyCode.from_char('w'): 'move_forward', KeyCode.from_char('s'): 'move_backward',
                                Key.left: 'rotate_ccw', Key.right: 'rotate_cw', Key.up: 'move_up', Key.down: 'move_down'}
         self.functions = {Key.tab: 'takeoff', Key.backspace: 'land', Key.esc: 'emergency_stop', 
-                          KeyCode.from_char('b'): 'get_battery', KeyCode.from_char('t'): 'throw_and_go'}
+                          KeyCode.from_char('b'): 'print_battery', KeyCode.from_char('t'): 'throw_and_go'}
 
-        self.flips = {KeyCode.from_char('z'): 'l', KeyCode.from_char('x'): 'r'}
+        self.flips = {KeyCode.from_char('z'): 'l', KeyCode.from_char('x'): 'r', KeyCode.from_char('c'): 'b'}
 
         self.listener = Listener(on_press=self.on_press, on_release=self.on_release)
         self.listener.daemon = True

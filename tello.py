@@ -128,6 +128,9 @@ class Tello:
             print(e)
         return battery
 
+    def print_battery(self):
+        print(self.get_battery())
+
     def get_speed(self):
         speed = self.send_command('speed?')
         try:
